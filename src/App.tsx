@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react"
-import { UserList } from "./components/UserList/UserList"
+import { Routes, Route, Link } from 'react-router-dom';
+import UserList from './pages/UserList/UserList';
+import {UserDetails} from './components/UserDetails/UserDetails';
+import {About} from './pages/About/About';
 import type { User } from "./types/User"
 
 function App() {
@@ -65,10 +68,25 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>User Information</h1>
-      <button onClick={clearUsers}>clear</button>
-      <UserList users={users} onToggleActive={toggleActive} onIncClickCount={incrementClickCount} />
+    <div>
+      <nav>
+        <Link to="/">Users</Link> | <Link to="/about">About</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<UserList users={users} clearUsers={clearUsers} />} />
+        <Route
+          path="/users/:id"
+          element={
+            <UserDetails
+              users={users}
+              onToggleActive={toggleActive}
+              onIncClickCount={incrementClickCount}
+            />
+          }
+        />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </div>
   )
 }
