@@ -1,9 +1,10 @@
 import { UserCard } from "./components/UserCard/UserCard"
 import type { User } from "./types/User"
+import { useEffect, useState } from "react"
 
 function App() {
 
-  const mockUsers: User[] = [
+  const [users, setUsers] = useState<User[]>([
     {
       id: "1",
       name: "John Doe",
@@ -18,17 +19,27 @@ function App() {
       age: 25,
       isActive: false
     },
-  ]
+  ])
+
+  useEffect(() => {
+    console.log('Users updated:', users);
+  }, [users]);
+
+  const toggleActive = (id: string) => {
+    setUsers((prevUsers) => 
+      prevUsers.map((user) =>
+        user.id === id ? { ...user, isActive: !user.isActive } : user
+      )
+    );}
   return (
     <>
       <div className="App">
         <h1>User Information</h1>
-        {mockUsers.map((user) =>(
-          <UserCard key={user.id} user={user} />
+        {users.map((user) =>(
+          <UserCard key={user.id} user={user} onToggleActive={toggleActive} />
         ))}
       </div>
     </>
   )
 }
-
 export default App
