@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import type { User } from '../../types/User';
+import { useUserStore } from '../../store/userStore';
 
 interface UserListProps {
   users: User[];
-  clearUsers?: () => void;
+  // clearUsers: () => void;
 }
 
-export default function UserList({ users, clearUsers }: UserListProps) {
+export default function UserList({ users}: UserListProps) {
+  const clearUsers = useUserStore((state) => state.clearUsers);
   return (
     <div>
       <h1>Users</h1>
