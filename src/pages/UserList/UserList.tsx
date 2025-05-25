@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { User } from '../../types/User';
 import { useUserStore } from '../../store/userStore';
+import { UserForm } from '../../components/UserForm/UserForm';
 
 interface UserListProps {
   users: User[];
@@ -12,6 +13,7 @@ export default function UserList({ users}: UserListProps) {
   return (
     <div>
       <h1>Users</h1>
+      <UserForm />
       <button onClick={clearUsers}>Clear</button>
       <ul>
         {users.map(user => (

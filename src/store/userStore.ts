@@ -7,6 +7,7 @@ interface UserState {
     toggleActive: (id: number) => void
     incrementClickCount: (id: number) => void
     clearUsers: () => void
+    addUser: (user:User) => void
 }
 
 export const useUserStore = create<UserState>((set) => ({
@@ -22,5 +23,8 @@ export const useUserStore = create<UserState>((set) => ({
             user.id === id ? { ...user, clickCount: user.clickCount + 1 } : user
         )
     })),
-    clearUsers: () => set({ users: [] })
+    clearUsers: () => set({ users: [] }),
+    addUser: (user) => set((state) => ({
+        users: [...state.users, user]
+    }))
 }));
